@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
 // Place routes here
 // example route path
 // require("./app/routes/user.routes")(app);
-
+require("./app/routes/users.routes")(app);
 // console.log(`date now ${Date.now}`);
 
 // listen for requests (for heroku)
