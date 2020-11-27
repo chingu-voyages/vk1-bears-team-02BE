@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 require("./app/routes/users.routes")(app);
 require("./app/routes/test.routes")(app);
 // console.log(`date now ${Date.now}`);
-
+// add another route for user registration
 // listen for requests (for heroku)
 let port = process.env.PORT;
 if (port == null || port == "") {
