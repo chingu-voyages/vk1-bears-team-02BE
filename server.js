@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 
-var cors = require("cors");
+const cors = require("cors");
 
 // create express app
 const app = express();
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose
@@ -46,7 +46,9 @@ app.get("/", (req, res) => {
 // Place routes here
 // example route path
 // require("./app/routes/user.routes")(app);
+require("./app/routes/auth.routes")(app);
 require("./app/routes/users.routes")(app);
+
 require("./app/routes/test.routes")(app);
 // console.log(`date now ${Date.now}`);
 // add another route for user registration
