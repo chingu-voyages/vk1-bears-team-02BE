@@ -111,6 +111,18 @@ exports.findAll = async (req, res) => {
 					coordinates: [120.984222, 14.599512],
 				},
 			},
+
+			{
+				type: "Feature",
+				properties: {
+					message: "Snow at this location",
+					iconSize: [40, 40],
+				},
+				geometry: {
+					type: "Point",
+					coordinates: [121.0014, 14.5378],
+				},
+			},
 		];
 		res.send({ data: coordinates_detail, statusCode: 201 });
 	} catch (error) {
