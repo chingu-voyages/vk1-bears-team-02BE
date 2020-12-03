@@ -2,12 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
 
+const cors = require("cors");
 // create express app
 const app = express();
 
 app.use(cors());
+
+app.use(
+	session({
+		secret: "user login",
+		resave: false,
+		saveUninitialized: true,
+		// cookie: { secure: true },
+	})
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
