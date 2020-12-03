@@ -6,4 +6,5 @@ module.exports = (app) => {
 	app.post("/register", authentication.register);
 	app.post("/login", authentication.login);
 	app.get("/logout", authentication.logout);
+	app.get("/auth/google", authentication.authGoogle);
 };

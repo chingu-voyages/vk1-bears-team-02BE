@@ -1,12 +1,36 @@
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const passport = require("passport");
+const findOrCreate = require("mongoose-findorcreate");
 const User = require("../models/users.model");
+
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID: process.env.CLIENT_ID,
+			clientSecret: process.env.CLIENT_SECRET,
+			callbackURL: "http://localhost:5000/auth/google/login-with-google",
+			userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+		},
+		(accessToken, refreshToken, profile, cb) => {
+			User.findOrCreate({ googleId: profile.id }, function (err, user) {
+				return cb(err, user);
+			});
+		}
+	)
+);
+
+exports.authGoogle = (req, res) => {
+	//type of strategy
+	console.log("open google");
+	passport.authenticate("google", { scope: ["profile"] });
+	res.json({ message: "we're here" });
+};
 
 exports.register = async (req, res) => {
 	const { username, email, password } = req.body;
