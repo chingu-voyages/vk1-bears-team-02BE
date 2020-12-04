@@ -2,12 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 
-var cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
 
+const cors = require("cors");
 // create express app
 const app = express();
 
 app.use(cors());
+
+app.use(
+	session({
+		secret: "user login",
+		resave: false,
+		saveUninitialized: true,
+		// cookie: { secure: true },
+	})
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +33,7 @@ app.use(bodyParser.json());
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose
@@ -46,7 +60,9 @@ app.get("/", (req, res) => {
 // Place routes here
 // example route path
 // require("./app/routes/user.routes")(app);
+require("./app/routes/auth.routes")(app);
 require("./app/routes/users.routes")(app);
+
 require("./app/routes/test.routes")(app);
 // console.log(`date now ${Date.now}`);
 // add another route for user registration
