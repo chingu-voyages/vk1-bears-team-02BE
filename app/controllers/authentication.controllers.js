@@ -6,30 +6,60 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function (user, done) {
+	done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+	User.findById(id, function (err, user) {
+		done(err, user);
+	});
+});
 
 passport.use(
 	new GoogleStrategy(
 		{
 			clientID: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,
-			callbackURL: "http://localhost:5000/auth/google/login-with-google",
+			callbackURL: "http://localhost:5000/google/callback", //we will change this once we set up our remote server
+			// passReqToCallback: true,
 			userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
 		},
-		(accessToken, refreshToken, profile, cb) => {
-			User.findOrCreate({ googleId: profile.id }, function (err, user) {
-				return cb(err, user);
-			});
+		async (accessToken, refreshToken, profile, cb) => {
+			try {
+				console.log(profile);
+				await User.findOrCreate(
+					{
+						googleId: profile.id,
+						username: profile.emails[0].value,
+						email: profile.emails[0].value,
+						displayName: profile.displayName,
+						familyName: profile.name.familyName,
+						givenName: profile.name.givenName,
+						photo: profile.photos[0].value,
+					},
+					function (err, user) {
+						return cb(err, user);
+					}
+				);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	)
 );
 
-exports.authGoogle = (req, res) => {
-	//type of strategy
-	console.log("open google");
-	passport.authenticate("google", { scope: ["profile"] });
-	res.json({ message: "we're here" });
+// exports.authGoogle = (req, res) => {
+// 	//type of strategy
+// 	console.log("open google");
+// 	passport.authenticate("google", { scope: ["profile"] });
+// 	res.json({ message: "we're here" });
+// };
+
+exports.googleCallback = (req, res) => {
+	console.log(req.user);
+	res.redirect("http://localhost:3000/user/flood");
+	// res.json({ message: `welcome ${req.user}` });
 };
 
 exports.register = async (req, res) => {

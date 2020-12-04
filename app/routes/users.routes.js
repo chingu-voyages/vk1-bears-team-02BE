@@ -3,4 +3,5 @@ module.exports = (app) => {
 
 	//get all customer
 	app.get("/users", users.findAll);
+	app.get("/user/:userId", users.findOne);
 };

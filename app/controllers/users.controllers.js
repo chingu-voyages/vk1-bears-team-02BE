@@ -1,42 +1,37 @@
 const mongoose = require("mongoose");
+const Users = require("../models/users.model");
 
 exports.findAll = async (req, res) => {
 	try {
-		const data = [
-			{
-				_id: "5f9adcafeafe552f7859326f",
-				first_name: "Dylan",
-				last_name: "Funcion",
-				email: "dylan@gmail.com",
-				contact: 9128885,
-				image: "img/dylan.png",
-				house_number: "520-B",
-				street_address: "di mahanap hanap street",
-				city: "star city",
-				state: "golden state",
-				zipcode: 9111,
-			},
-			{
-				_id: "5f9d2544e23f610418e2c7b3",
-				first_name: "Kaori",
-				last_name: "Miyazono",
-				email: "kaori_miyazono@gmail.com",
-				contact: 918263346,
-				image:
-					"https://pbs.twimg.com/profile_images/646859109438984196/WV6Tv23S.jpg",
-				house_number: "520-B",
-				street_address: "di mahanap hanap street",
-				city: "star city",
-				state: "golden state",
-				zipcode: 9111,
-				__v: 0,
-			},
-		];
-		res.send(data);
+		const data = await Users.find();
+		res.status(200).json({ data: data, message: "all users(civilian type)" });
 	} catch (error) {
-		res.status(500).send({
+		res.status(500).json({
 			message:
 				error.message || "Some error occurred while creating customer data.",
 		});
 	}
 };
+
+exports.findOne = async (req, res) => {
+	try {
+		const data = await Users.findById(req.params.userId);
+		if (!data) {
+			return res.status(404).json({
+				message: "record not found with id: " + req.params.userId,
+			});
+		}
+		res.status(200).json({
+			data: data,
+			message: `search result for user: ${req.params.userId}`,
+		});
+	} catch (error) {
+		res.status(500).send({
+			message: error.message || "Some error ",
+		});
+	}
+};
+
+///update
+
+///delete

@@ -7,15 +7,40 @@ mongoose.set("useCreateIndex", true);
 const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
-		required: true,
+		//required: true,
 	},
 	email: {
 		type: String,
-		required: true,
+		//required: true,
 	},
 	password: {
 		type: String,
 		// required: true,
+	},
+
+	//data coming from google
+	googleId: {
+		type: String,
+	},
+
+	displayName: {
+		type: String,
+	},
+
+	givenName: {
+		type: String,
+	},
+
+	familyName: {
+		type: String,
+	},
+
+	email: {
+		type: String,
+	},
+
+	photo: {
+		type: String,
 	},
 });
 

@@ -1,3 +1,9 @@
+const passport = require("passport");
+
+// const User = require("../models/users.model");
+
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 module.exports = (app) => {
 	const authentication = require("../controllers/authentication.controllers");
 
@@ -6,5 +12,16 @@ module.exports = (app) => {
 	app.post("/register", authentication.register);
 	app.post("/login", authentication.login);
 	app.get("/logout", authentication.logout);
-	app.get("/auth/google", authentication.authGoogle);
+	app.get(
+		"/google",
+		passport.authenticate("google", { scope: ["profile", "email"] })
+	);
+	app.get(
+		"/google/callback",
+		passport.authenticate("google", {
+			failureRedirect: "/failed",
+			// session: false,
+		}),
+		authentication.googleCallback
+	);
 };
