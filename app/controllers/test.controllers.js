@@ -40,91 +40,20 @@ exports.findAll = async (req, res) => {
 		// 		},
 		// 	],
 		// };
+		var MongoClient = require('mongodb').MongoClient;
+		var url = process.env.DB_REMOTE;
 
-		var coordinates_detail = [
-			{
-				type: "Feature",
-				properties: {
-					message: "Foo",
-					iconSize: [60, 60],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [-66.324462890625, -16.024695711685304],
-				},
-			},
-			{
-				type: "Feature",
-				properties: {
-					message: "Bar",
-					iconSize: [50, 50],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [-61.2158203125, -15.97189158092897],
-				},
-			},
-			{
-				type: "Feature",
-				properties: {
-					message: "Baz",
-					iconSize: [40, 40],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [-63.29223632812499, -18.28151823530889],
-				},
-			},
-
-			{
-				type: "Feature",
-				properties: {
-					message: "Fire at this location",
-					iconSize: [40, 40],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [121.0244, 14.5547],
-				},
-			},
-
-			{
-				type: "Feature",
-				properties: {
-					message: "Fire at this location",
-					iconSize: [40, 40],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [120.984222, 14.676],
-				},
-			},
-
-			{
-				type: "Feature",
-				properties: {
-					message: "Fire at this location",
-					iconSize: [40, 40],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [120.984222, 14.599512],
-				},
-			},
-
-			{
-				type: "Feature",
-				properties: {
-					message: "Snow at this location",
-					iconSize: [40, 40],
-				},
-				geometry: {
-					type: "Point",
-					coordinates: [121.0014, 14.5378],
-				},
-			},
-		];
-		res.send({ data: coordinates_detail, statusCode: 201 });
+		MongoClient.connect(url, function (err, db) {
+			if (err) throw err;
+			var dbo = db.db("test");
+			//Find all documents in the customers collection:
+			dbo.collection("mapmarkers").find({}).toArray(function (err, result) {
+				if (err) throw err;
+				console.log(result);
+				res.send({ data: result, statusCode: 201 });
+				db.close();
+			});
+		});
 	} catch (error) {
 		res.status(500).send({
 			message:

@@ -1,9 +1,50 @@
+http://localhost:5000/users
+
+###
 POST http://localhost:5000/register
-Content-Type:application/json
+Content-Type: application/json
 
 {
-    "username":"kaori_miyazono@gmail.com",
-    "password":"passwrd",
-    "email":"email@email.com"
+
+    "first_name" : "aaaaaaaaaaaa",
+	"last_name": "hello",
+	"email": "aaaaaaaaaaaaaaa@yahoo.com",
+	"password" : "hello",
+	"contact": "hello",
+	"house_number": "hello",
+	"street_address": "hello",
+	"city": "hello",
+	"state": "hello",
+	"zipcode": "hello"
+}
+###
+http://localhost:5000/findall
+
+###
+POST http://localhost:5000/addMarker
+Content-Type: application/json
+
+{
+    "type": "Feature",
+	"message": "hello",
+	"len": 40,
+	"wid": 40,
+	"type2": "Point",
+	"lat": 120.9842,
+	"long": 14.5995
+				
+			
+}
+
+###
+http://localhost:5000/coordinates
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+	"username" : "kkkaa",
+	"password" : "ddd"
 }
 
