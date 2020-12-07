@@ -41,6 +41,7 @@ mongoose
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
+		useFindAndModify: false,
 	})
 	.then(() => {
 		console.log("Successfully connected to the database");
@@ -62,7 +63,7 @@ app.get("/", (req, res) => {
 // require("./app/routes/user.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/users.routes")(app);
-
+require("./app/routes/admins.routes")(app);
 require("./app/routes/test.routes")(app);
 // console.log(`date now ${Date.now}`);
 // add another route for user registration
