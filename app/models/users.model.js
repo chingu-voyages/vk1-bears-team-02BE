@@ -42,6 +42,8 @@ const UserSchema = new mongoose.Schema({
 	photo: {
 		type: String,
 	},
+
+	// map: [{ type: mongoose.Schema.Types.ObjectId, ref: "Map" }],
 });
 
 //for hashing and salting password

@@ -69,7 +69,7 @@ exports.findOne = async (req, res) => {
 
 ///update
 exports.update = async (req, res) => {
-	const { username, password, email, givenName, familyName } = req.body;
+	const { username, password, email, givenName, familyName, userId } = req.body;
 	const option = { new: true };
 
 	bcrypt.hash(password, saltRounds, async (err, hash) => {
@@ -82,11 +82,7 @@ exports.update = async (req, res) => {
 		};
 
 		try {
-			const data = await Admins.findByIdAndUpdate(
-				req.params.userId,
-				reqBody,
-				option
-			);
+			const data = await Admins.findByIdAndUpdate(userId, reqBody, option);
 
 			if (!data) {
 				return res.status(httpsStatus.NOT_FOUND).send({

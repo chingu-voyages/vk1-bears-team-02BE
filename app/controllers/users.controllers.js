@@ -4,7 +4,7 @@ const httpsStatus = require("../utilities/httpStatus");
 
 exports.findAll = async (req, res) => {
 	try {
-		const data = await Users.find();
+		const data = await Users.find().populate("mapData");
 		res.status(httpsStatus.OK).json({
 			data: data,
 			message: "all users(civilian type)",
@@ -20,7 +20,7 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
 	try {
-		const data = await Users.findById(req.params.userId);
+		const data = await Users.findById(req.params.userId).populate("mapData");
 		if (!data) {
 			return res.status(httpsStatus.NOT_FOUND).json({
 				message: "record not found with id: " + req.params.userId,
