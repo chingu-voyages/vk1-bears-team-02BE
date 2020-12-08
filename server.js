@@ -64,6 +64,7 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/users.routes")(app);
 require("./app/routes/admins.routes")(app);
+require("./app/routes/maps.routes")(app);
 require("./app/routes/test.routes")(app);
 // console.log(`date now ${Date.now}`);
 // add another route for user registration
