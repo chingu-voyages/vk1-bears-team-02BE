@@ -1,0 +1,6 @@
+@import "../../style/colors.css";
+
+.register-page {
+  background: var(--primary-red);
+  color: var(--primary-white);
+}

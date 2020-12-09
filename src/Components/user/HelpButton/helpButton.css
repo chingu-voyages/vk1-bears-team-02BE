@@ -1,0 +1,39 @@
+@import "../../../style/colors.css";
+
+.help-button-wrapper {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+.help-button {
+  height: 100%;
+  width: 100%;
+  max-width: 402px;
+  max-height: 402px;
+  border-radius: 100%;
+  border: 7px solid var(--primary-white);
+  background-color: inherit;
+  cursor: pointer;
+  padding: 20px;
+  color: var(--primary-white);
+}
+
+.help-button:after {
+  content: "";
+  position: absolute;
+  border: 2px solid var(--primary-white);
+  border-radius: 100%;
+  height: 100%;
+  width: 100%;
+  transition-duration: 1s;
+}
+
+.help-button:hover::after {
+  transform: scale(1.1);
+}
+
+.help-button h2 {
+  font-size: 24px;
+  font-weight: normal;
+}

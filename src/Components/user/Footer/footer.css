@@ -1,0 +1,24 @@
+@import "../../../style/colors.css";
+
+.bottom-navbar {
+  background-color: var(--primary-white);
+  height: 10%;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.bottom-navbar ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bottom-navbar ul a {
+  cursor: pointer;
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
+.bottom-navbar ul a:hover img {
+  transform: rotate(360deg);
+  transition-duration: 1s;
+}

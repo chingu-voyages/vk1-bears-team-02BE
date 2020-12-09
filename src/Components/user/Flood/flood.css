@@ -1,0 +1,9 @@
+@import "../../../style/colors.css";
+
+.help-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-red);
+  height: 80%;
+}

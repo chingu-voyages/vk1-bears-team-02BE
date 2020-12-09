@@ -71,10 +71,15 @@ exports.register = async (req, res) => {
 			password,
 			(err, user) => {
 				if (err) {
-					console.log(err);
+					return res
+						.status(400)
+						.json({ msg: "Username already taken" });
 				} else {
 					passport.authenticate("local")(req, res, () => {
 						res.json({ data: user, status: 200 });
+						return res
+							.status(200)
+							.json({ msg: "Success" });
 					});
 				}
 			}
@@ -112,7 +117,9 @@ exports.login = async (req, res) => {
 	try {
 		req.login(user, (err) => {
 			if (err) {
-				console.log(`err:${err}`);
+				return res
+					.status(400)
+					.json({ msg: "Login Failed" });
 			} else {
 				passport.authenticate("local")(req, res, async () => {
 					const data = await User.findOne(
@@ -168,5 +175,5 @@ exports.logout = async (req, res) => {
 	try {
 		req.logout();
 		res.json({ message: "logout successfully", status: 200 });
-	} catch (error) {}
+	} catch (error) { }
 };

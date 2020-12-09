@@ -1,0 +1,37 @@
+@import "../../style/style.css";
+@import "../../style/colors.css";
+@import "../../App.css";
+
+.logo-wrapper {
+  background-color: var(--primary-red);
+}
+
+.logo {
+  font-size: 2.3em;
+  color: var(--primary-white);
+}
+
+.sub-title {
+  color: var(--primary-white);
+  margin-top: 0.3em;
+}
+
+.button {
+  position: relative;
+  color: var(--primary-white);
+  background: linear-gradient(
+    to right,
+    var(--primary-red),
+    var(--primary-orange)
+  );
+  border-radius: 50px;
+  height: 56px;
+  width: 230px;
+  font-size: 20px;
+  margin: 10px;
+  outline: none;
+}
+
+footer {
+  font-size: 0.6em;
+}

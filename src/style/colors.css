@@ -1,0 +1,9 @@
+:root {
+  --primary-red: #a40606;
+  --primary-orange: #d98324;
+  --primary-white: rgb(255, 245, 245);
+}
+
+.btn-primary {
+  color: var(--primary-red) !important;
+}
