@@ -27,6 +27,8 @@ exports.findOne = async (req, res) => {
 				status: httpsStatus.NOT_FOUND,
 			});
 		}
+		// console.log(`req.userData.username ${req.userData.username}`);
+
 		res.status(httpsStatus.OK).json({
 			data: data,
 			message: `search result for user: ${req.params.userId}`,
