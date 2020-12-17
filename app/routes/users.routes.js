@@ -3,6 +3,10 @@ module.exports = (app) => {
 	const authUser = require("../utilities/check-auth");
 
 	//get all customer
+	app.post("/add-user-civilian", users.create);
 	app.get("/users", users.findAll);
-	app.get("/user/:userId", authUser.authenticate, users.findOne);
+	//authUser.authenticate,
+	app.get("/user/:userId", users.findOne);
+	app.put("/user/:userId", users.update);
+	app.delete("/user/:userId", users.findOne);
 };
