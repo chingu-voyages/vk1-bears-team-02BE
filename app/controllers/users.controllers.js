@@ -113,3 +113,28 @@ exports.update = async (req, res) => {
 };
 
 ///delete
+exports.delete = async (req, res) => {
+	try {
+		const data = await Users.findByIdAndRemove(req.params.userId);
+		if (!data) {
+			return res.status(httpsStatus.NOT_FOUND).send({
+				message: "record not found with id " + req.params.userId,
+				status: httpsStatus.NOT_FOUND,
+			});
+		} else {
+			return res.status(httpsStatus.OK).send({
+				message: "record deleted for user id " + req.params.userId,
+				status: httpsStatus.OK,
+			});
+		}
+	} catch (err) {
+		if (err.kind === "ObjectId" || err.name === "NotFound") {
+			return res.status(httpsStatus.NOT_FOUND).send({
+				message: "User not found with id " + req.params.userId,
+			});
+		}
+		return res.status(httpsStatus.INTERNAL_SERVER_ERROR).send({
+			message: "Could not delete user with id " + req.params.userId,
+		});
+	}
+};

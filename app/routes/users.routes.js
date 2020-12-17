@@ -8,5 +8,5 @@ module.exports = (app) => {
 	//authUser.authenticate,
 	app.get("/user/:userId", users.findOne);
 	app.put("/user/:userId", users.update);
-	app.delete("/user/:userId", users.findOne);
+	app.delete("/user/:userId", users.delete);
 };
