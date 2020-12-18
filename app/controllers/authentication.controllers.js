@@ -3,6 +3,7 @@ const saltRounds = 10;
 const passport = require("passport");
 const findOrCreate = require("mongoose-findorcreate");
 const User = require("../models/users.model");
+const Admin = require("../models/admins.models");
 const jwt = require("jsonwebtoken");
 
 const httpsStatus = require("../utilities/httpStatus");
@@ -213,7 +214,66 @@ exports.login = async (req, res) => {
 									res.status(httpsStatus.OK).json({
 										data: data,
 										token: token,
-										message: "user added",
+										message: "user login",
+										status: httpsStatus.OK,
+									});
+									// res.json({ data: data, status: 200 });
+								} else {
+									res.status(httpsStatus.NOT_FOUND).json({
+										// data: data,
+										// token: token,
+										message: "invalid credentials",
+										status: httpsStatus.NOT_FOUND,
+									});
+								}
+							}
+						);
+					}
+				}
+			}
+		);
+	} catch (error) {}
+};
+
+exports.loginAdmin = async (req, res) => {
+	const { username, password } = req.body;
+
+	try {
+		const data = await Admin.findOne(
+			{ username: username },
+			(error, foundUser) => {
+				if (error) {
+					console.log(`error:${error}`);
+				} else {
+					if (foundUser) {
+						// if (foundUser.password === password) {
+						// 	res.json({ data: data, status: 200 });
+						// } else {
+						// 	res.json({ data: "error,wrong password" });
+						// }
+
+						bcrypt.compare(
+							password,
+							foundUser.password,
+							async (err, result) => {
+								// result == true
+								if (result === true) {
+									const payload = {
+										username: foundUser.username,
+										email: foundUser.email,
+										userId: foundUser._id,
+										role: "admin",
+									};
+									//jwt key
+									const option = {
+										expiresIn: "1h",
+									};
+									const token = jwt.sign(payload, "secret", option);
+
+									res.status(httpsStatus.OK).json({
+										data: data,
+										token: token,
+										message: "user login",
 										status: httpsStatus.OK,
 									});
 									// res.json({ data: data, status: 200 });
@@ -235,6 +295,17 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
+	try {
+		// req.logout();
+		// res.json({ message: "logout successfully", status: 200 });
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message: error.message || "Some error occurred while creating user data.",
+		});
+	}
+};
+
+exports.logoutAdmin = async (req, res) => {
 	try {
 		// req.logout();
 		// res.json({ message: "logout successfully", status: 200 });

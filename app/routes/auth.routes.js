@@ -7,6 +7,8 @@ const CLIENT_HOME_PAGE_URL = "http://localhost:3000/login";
 module.exports = (app) => {
 	const authentication = require("../controllers/authentication.controllers");
 
+	app.post("/admin/login", authentication.loginAdmin);
+	app.post("/admin/logout", authentication.logoutAdmin);
 	//register user
 	// app.get("/register", authentication.register);
 	app.post("/register", authentication.register);
