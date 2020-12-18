@@ -24,10 +24,10 @@ exports.create = async (req, res) => {
 
 	try {
 		const data = await mapData.save();
-		res.status(httpsStatus.CREATED).json({
+		res.status(httpsStatus.OK).json({
 			feature: data,
 			message: "distress message has been sent",
-			status: httpsStatus.CREATED,
+			status: httpsStatus.OK,
 		});
 	} catch (error) {
 		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
@@ -93,10 +93,10 @@ exports.update = async (req, res) => {
 				status: httpsStatus.NOT_FOUND,
 			});
 		}
-		return res.status(httpsStatus.CREATED).send({
+		return res.status(httpsStatus.OK).send({
 			data: data,
 			message: "record updated for data with an id of " + req.params.mapId,
-			status: httpsStatus.CREATED,
+			status: httpsStatus.OK,
 		});
 	} catch (error) {
 		res.status(httpsStatus.INTERNAL_SERVER_ERROR).send({

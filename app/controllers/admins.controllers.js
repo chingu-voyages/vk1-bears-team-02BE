@@ -17,10 +17,10 @@ exports.create = async (req, res) => {
 		});
 		try {
 			const data = await admin.save();
-			res.status(httpsStatus.CREATED).json({
+			res.status(httpsStatus.OK).json({
 				data: data,
 				message: "admin has been admin",
-				status: httpsStatus.CREATED,
+				status: httpsStatus.OK,
 			});
 		} catch (error) {
 			res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
@@ -94,10 +94,10 @@ exports.update = async (req, res) => {
 					status: httpsStatus.NOT_FOUND,
 				});
 			}
-			return res.status(httpsStatus.CREATED).send({
+			return res.status(httpsStatus.OK).send({
 				data: data,
 				message: "record updated for user id " + req.params.userId,
-				status: httpsStatus.CREATED,
+				status: httpsStatus.OK,
 			});
 		} catch (error) {
 			res.status(httpsStatus.INTERNAL_SERVER_ERROR).send({
