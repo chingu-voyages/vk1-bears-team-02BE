@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 
@@ -11,12 +11,13 @@ const app = express();
 
 app.use(cors());
 
+app.use(cookieParser());
 app.use(
 	session({
 		secret: "user login",
 		resave: false,
 		saveUninitialized: true,
-		// cookie: { secure: true },
+		cookie: { secure: true },
 	})
 );
 
