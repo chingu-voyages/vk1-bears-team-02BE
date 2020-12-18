@@ -32,7 +32,7 @@ passport.use(
 		},
 		async (accessToken, refreshToken, profile, cb) => {
 			try {
-				console.log(profile);
+				// console.log(profile);
 				await User.findOrCreate(
 					{
 						googleId: profile.id,
@@ -62,9 +62,28 @@ passport.use(
 // };
 
 exports.googleCallback = (req, res) => {
-	console.log(req.user);
-	res.redirect("http://localhost:3000/user/flood");
+	console.log(`from ${req.user}`);
+	console.log(req.session);
+	// console.log(req);
+	// res.redirect("http://localhost:3000/user/flood");
 	// res.json({ message: `welcome ${req.user}` });
+	res.status(httpsStatus.OK).json({
+		user: req.user,
+		message: "unable to authorize user",
+		status: httpsStatus.OK,
+	});
+};
+
+exports.googleFailedLogin = (req, res) => {
+	res.status(httpsStatus.UNAUTHORIZED).json({
+		message: "unable to authorize user",
+		status: httpsStatus.UNAUTHORIZED,
+	});
+};
+
+exports.test = (req, res) => {
+	console.log(`from ${req.user}`);
+	res.send(req.user);
 };
 
 // exports.register = async (req, res) => {
