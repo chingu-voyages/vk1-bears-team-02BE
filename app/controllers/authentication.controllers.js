@@ -142,6 +142,7 @@ exports.register = async (req, res) => {
 				token: token,
 				message: "user added",
 				status: httpsStatus.OK,
+				role: "civilian",
 			});
 		} catch (error) {
 			res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
@@ -154,7 +155,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
 	const { username, password } = req.body;
-
+	console.log(req.body);
 	const user = new User({
 		username: username,
 		password: password,
@@ -215,19 +216,27 @@ exports.login = async (req, res) => {
 										data: data,
 										token: token,
 										message: "user login",
+										role: "civilian",
 										status: httpsStatus.OK,
 									});
 									// res.json({ data: data, status: 200 });
 								} else {
-									res.status(httpsStatus.NOT_FOUND).json({
+									res.status(httpsStatus.OK).json({
 										// data: data,
 										// token: token,
 										message: "invalid credentials",
-										status: httpsStatus.NOT_FOUND,
+										status: httpsStatus.OK,
 									});
 								}
 							}
 						);
+					} else {
+						res.status(httpsStatus.OK).json({
+							// data: data,
+							// token: token,
+							message: "invalid credentials",
+							status: httpsStatus.OK,
+						});
 					}
 				}
 			}
@@ -275,18 +284,26 @@ exports.loginAdmin = async (req, res) => {
 										token: token,
 										message: "user login",
 										status: httpsStatus.OK,
+										role: "admin",
 									});
 									// res.json({ data: data, status: 200 });
 								} else {
-									res.status(httpsStatus.NOT_FOUND).json({
+									res.status(httpsStatus.OK).json({
 										// data: data,
 										// token: token,
 										message: "invalid credentials",
-										status: httpsStatus.NOT_FOUND,
+										status: httpsStatus.OK,
 									});
 								}
 							}
 						);
+					} else {
+						res.status(httpsStatus.OK).json({
+							// data: data,
+							// token: token,
+							message: "invalid credentials",
+							status: httpsStatus.OK,
+						});
 					}
 				}
 			}
