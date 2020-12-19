@@ -2,6 +2,16 @@ const mongoose = require("mongoose");
 const Maps = require("../models/maps.models");
 const httpsStatus = require("../utilities/httpStatus");
 
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+	appId: process.env.APP_ID,
+	key: process.env.APP_KEY,
+	secret: process.env.APP_SECRET,
+	cluster: "us3",
+	useTLS: true,
+});
+
 exports.create = async (req, res) => {
 	const {
 		civilian,
@@ -24,6 +34,11 @@ exports.create = async (req, res) => {
 
 	try {
 		const data = await mapData.save();
+
+		pusher.trigger("map-data-create", "map-data-create-event", {
+			feature: data,
+		});
+
 		res.status(httpsStatus.OK).json({
 			feature: data,
 			message: "distress message has been sent",
@@ -39,6 +54,9 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
 	try {
 		const features = await Maps.find().populate("civilian");
+		pusher.trigger("map-data-findAll", "map-data-findAll-event", {
+			feature: features,
+		});
 		res.status(httpsStatus.OK).json({
 			features: features,
 			message: "all map data",
@@ -93,6 +111,10 @@ exports.update = async (req, res) => {
 				status: httpsStatus.NOT_FOUND,
 			});
 		}
+
+		pusher.trigger("map-data-update", "map-data-update-event", {
+			data: data,
+		});
 		return res.status(httpsStatus.OK).send({
 			data: data,
 			message: "record updated for data with an id of " + req.params.mapId,
