@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 
 const httpsStatus = require("../utilities/httpStatus");
 
+const nodemailer = require("nodemailer");
+
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(User.createStrategy());
@@ -109,6 +111,17 @@ exports.test = (req, res) => {
 // 	}
 // };
 
+// create reusable transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+	port: 465, // true for 465, false for other ports
+	host: "smtp.gmail.com",
+	auth: {
+		user: process.env.EMAIL_USER,
+		pass: process.env.EMAIL_PASSWORD,
+	},
+	secure: true,
+});
+
 exports.register = async (req, res) => {
 	const { username, password, email, givenName, familyName } = req.body;
 
@@ -143,6 +156,22 @@ exports.register = async (req, res) => {
 				message: "user added",
 				status: httpsStatus.OK,
 				role: "civilian",
+			});
+
+			const mailData = {
+				from: "esagipapplication@gmail.com", // sender address
+				to: `${email}`, // list of receivers
+				subject: "Account Created",
+				// text: "That was easy!",
+				html: `<b>Hey there! ${username} </b>
+						 <br> Congratulations, you are now registered to e-sagip, you can now send distress call wherever you are.<br/>
+						 
+						 `,
+			};
+
+			transporter.sendMail(mailData, function (err, info) {
+				if (err) console.log(err);
+				else console.log(info);
 			});
 		} catch (error) {
 			res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
