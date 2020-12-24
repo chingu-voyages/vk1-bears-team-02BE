@@ -91,10 +91,12 @@ exports.findOne = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-	const { status } = req.body;
+	const { status, date } = req.body;
 
 	const reqBody = {
 		status: status,
+		date_acknowledge: date,
+		date_resolved: date,
 	};
 	const option = { new: true };
 

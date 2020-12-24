@@ -30,6 +30,9 @@ const MapSchema = new mongoose.Schema({
 		type: String,
 		default: "sent", //acknowledge // resolve
 	},
+	date_send: { type: Date, default: Date.now },
+	date_acknowledge: { type: Date, default: Date.now },
+	date_resolved: { type: Date, default: Date.now },
 	civilian: [{ type: mongoose.Schema.Types.ObjectId, ref: "Civilians" }],
 });
 
