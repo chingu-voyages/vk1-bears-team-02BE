@@ -49,8 +49,8 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
 	try {
-		// console.log("ano error");
-		const data = await Users.findById(req.params.userId).populate("mapData");
+		const data = await Users.findOne({ username: req.params.username })
+		console.log(req.params.username)
 		if (!data) {
 			return res.status(httpsStatus.NOT_FOUND).json({
 				message: "record not found with id: " + req.params.userId,
@@ -60,7 +60,7 @@ exports.findOne = async (req, res) => {
 		// console.log(`req.userData.username ${req.userData.username}`);
 
 		res.status(httpsStatus.OK).json({
-			data: data,
+			data: data.email,
 			message: `search result for user: ${req.params.userId}`,
 			status: httpsStatus.OK,
 		});
@@ -73,24 +73,59 @@ exports.findOne = async (req, res) => {
 
 ///update
 
+// exports.update = async (req, res) => {
+// 	const { username, password, email, givenName, familyName } = req.body;
+// 	const option = { new: true };
+
+// 	bcrypt.hash(password, saltRounds, async (err, hash) => {
+// 		const reqBody = {
+// 			username: username,
+// 			password: hash,
+
+// 		};
+
+// 		try {
+// 			const data = await Users.findByIdAndUpdate(
+// 				req.params.userId,
+// 				reqBody,
+// 				option
+// 			);
+
+// 			if (!data) {
+// 				return res.status(httpsStatus.NOT_FOUND).send({
+// 					message: "record not found with id " + req.params.userId,
+// 					status: httpsStatus.NOT_FOUND,
+// 				});
+// 			}
+// 			return res.status(httpsStatus.OK).send({
+// 				data: data,
+// 				message: "record updated for user id " + req.params.userId,
+// 				status: httpsStatus.OK,
+// 			});
+// 		} catch (error) {
+// 			res.status(httpsStatus.INTERNAL_SERVER_ERROR).send({
+// 				message: error.message || "Some error ",
+// 			});
+// 		}
+// 	});
+// };
 exports.update = async (req, res) => {
-	const { username, password, email, givenName, familyName } = req.body;
+	const { username, password, oldUsername } = req.body;
 	const option = { new: true };
 
 	bcrypt.hash(password, saltRounds, async (err, hash) => {
 		const reqBody = {
+
 			username: username,
 			password: hash,
-			email: email,
-			givenName: givenName,
-			familyName: familyName,
+
 		};
 
 		try {
-			const data = await Users.findByIdAndUpdate(
-				req.params.userId,
-				reqBody,
-				option
+			const currUser = await Users.findOne({ username: oldUsername })
+			const data = await Users.findOneAndUpdate(
+				{ _id: currUser._id }, reqBody
+
 			);
 
 			if (!data) {
