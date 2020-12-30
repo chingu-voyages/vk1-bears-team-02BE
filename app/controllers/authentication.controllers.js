@@ -65,16 +65,16 @@ passport.use(
 // };
 
 exports.googleCallback = (req, res) => {
-	console.log(`from ${req.user}`);
-	console.log(req.session);
+	// console.log(`from ${req.user}`);
+	// console.log(req.session);
 	// console.log(req);
-	// res.redirect("http://localhost:3000/user/flood");
+	res.redirect(`http://localhost:3000/login/?id=${req.user._id}`);
 	// res.json({ message: `welcome ${req.user}` });
-	res.status(httpsStatus.OK).json({
-		user: req.user,
-		message: "unable to authorize user",
-		status: httpsStatus.OK,
-	});
+	// res.status(httpsStatus.OK).json({
+	// 	user: req.user,
+	// 	message: "unable to authorize user",
+	// 	status: httpsStatus.OK,
+	// });
 };
 
 exports.googleFailedLogin = (req, res) => {
