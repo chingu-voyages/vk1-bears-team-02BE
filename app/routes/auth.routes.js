@@ -23,16 +23,11 @@ module.exports = (app) => {
 	app.get(
 		"/google/callback",
 		passport.authenticate("google", {
-			successRedirect: CLIENT_HOME_PAGE_URL,
+			// successRedirect: CLIENT_HOME_PAGE_URL,
 			failureRedirect: "auth/google/failed",
 			session: true,
-		})
-		// (req, res) => {
-		// 	console.log(req.user);
-		// 	res.redirect(CLIENT_HOME_PAGE_URL);
-		// }
-
-		// authentication.googleCallback
+		}),
+		authentication.googleCallback
 		//authentication.test
 	);
 	app.get("/auth/login/success", authentication.googleCallback);
