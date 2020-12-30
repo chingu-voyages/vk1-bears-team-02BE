@@ -159,7 +159,9 @@ exports.CountEarthquakeDistress = async (req, res) => {
 
 exports.findOne = async (req, res) => {
 	try {
-		const data = await Maps.findById(req.params.mapId);
+		const data = await (await Maps.findById(req.params.mapId)).populate(
+			"civilian"
+		);
 		if (!data) {
 			return res.status(httpsStatus.NOT_FOUND).json({
 				message: "record not found with id: " + req.params.mapId,
