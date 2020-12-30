@@ -53,7 +53,9 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
 	try {
-		const features = await Maps.find().populate("civilian");
+		const features = await Maps.find({ status: { $ne: "resolved" } }).populate(
+			"civilian"
+		);
 		pusher.trigger("map-data-findAll", "map-data-findAll-event", {
 			feature: features,
 		});
@@ -70,9 +72,96 @@ exports.findAll = async (req, res) => {
 	}
 };
 
+exports.mapDataReport = async (req, res) => {
+	try {
+		const features = await Maps.find()
+			.sort({ date_send: -1 })
+			.populate("civilian");
+		// .select("status date_send civilian[0].familyName");
+		pusher.trigger("map-data-findAll", "map-data-findAll-event", {
+			feature: features,
+		});
+		res.status(httpsStatus.OK).json({
+			features: features,
+			message: "all map data",
+			status: httpsStatus.OK,
+		});
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message:
+				error.message || "Some error occurred while creating customer data.",
+		});
+	}
+};
+
+exports.CountFireDistress = async (req, res) => {
+	try {
+		const count = await Maps.countDocuments({
+			"properties.disasterType": "Fire",
+		});
+
+		// .select("status date_send civilian[0].familyName");
+
+		res.status(httpsStatus.OK).json({
+			count: count,
+			message: "all map data",
+			status: httpsStatus.OK,
+		});
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message:
+				error.message || "Some error occurred while creating customer data.",
+		});
+	}
+};
+
+exports.CountFloodDistress = async (req, res) => {
+	try {
+		const count = await Maps.countDocuments({
+			"properties.disasterType": "Flood",
+		});
+
+		// .select("status date_send civilian[0].familyName");
+
+		res.status(httpsStatus.OK).json({
+			count: count,
+			message: "all map data",
+			status: httpsStatus.OK,
+		});
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message:
+				error.message || "Some error occurred while creating customer data.",
+		});
+	}
+};
+
+exports.CountEarthquakeDistress = async (req, res) => {
+	try {
+		const count = await Maps.countDocuments({
+			"properties.disasterType": "Earthquake",
+		});
+
+		// .select("status date_send civilian[0].familyName");
+
+		res.status(httpsStatus.OK).json({
+			count: count,
+			message: "all map data",
+			status: httpsStatus.OK,
+		});
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message:
+				error.message || "Some error occurred while creating customer data.",
+		});
+	}
+};
+
 exports.findOne = async (req, res) => {
 	try {
-		const data = await Maps.findById(req.params.mapId);
+		const data = await (await Maps.findById(req.params.mapId)).populate(
+			"civilian"
+		);
 		if (!data) {
 			return res.status(httpsStatus.NOT_FOUND).json({
 				message: "record not found with id: " + req.params.mapId,
@@ -91,10 +180,12 @@ exports.findOne = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-	const { status } = req.body;
+	const { status, date } = req.body;
 
 	const reqBody = {
 		status: status,
+		date_acknowledge: date,
+		date_resolved: date,
 	};
 	const option = { new: true };
 
