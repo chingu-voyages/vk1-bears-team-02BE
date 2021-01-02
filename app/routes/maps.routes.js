@@ -11,4 +11,5 @@ module.exports = (app) => {
 	app.get("/map-data/:mapId", maps.findOne);
 	app.put("/map-data/:mapId", maps.update);
 	app.delete("/map-data/:mapId", maps.delete);
+	app.get("/map-data/map-history/:userId", maps.findAllByCivilianId);
 };
