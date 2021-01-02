@@ -74,23 +74,21 @@ exports.findOne = async (req, res) => {
 ///update
 
 exports.update = async (req, res) => {
-	const { username, password, email, givenName, familyName } = req.body;
+	const { username, password, oldusername } = req.body;
 	const option = { new: true };
 
 	bcrypt.hash(password, saltRounds, async (err, hash) => {
 		const reqBody = {
+
 			username: username,
 			password: hash,
-			email: email,
-			givenName: givenName,
-			familyName: familyName,
+
 		};
 
 		try {
-			const data = await Users.findByIdAndUpdate(
-				req.params.userId,
-				reqBody,
-				option
+			const data = await Users.findOneAndUpdate(
+				{ username: oldusername }, reqBody
+
 			);
 
 			if (!data) {
