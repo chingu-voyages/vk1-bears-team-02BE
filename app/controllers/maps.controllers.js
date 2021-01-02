@@ -72,6 +72,27 @@ exports.findAll = async (req, res) => {
 	}
 };
 
+exports.findAllByCivilianId = async (req, res) => {
+	try {
+		const feature = await Maps.find()
+			.where("civilian", req.params.userId)
+			.populate("civilian");
+		pusher.trigger("map-data-findAll", "map-data-findAll-event", {
+			feature: feature,
+		});
+		res.status(httpsStatus.OK).json({
+			feature: feature,
+			message: "all map data",
+			status: httpsStatus.OK,
+		});
+	} catch (error) {
+		res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+			message:
+				error.message || "Some error occurred while creating customer data.",
+		});
+	}
+};
+
 exports.mapDataReport = async (req, res) => {
 	try {
 		const features = await Maps.find()
@@ -159,9 +180,7 @@ exports.CountEarthquakeDistress = async (req, res) => {
 
 exports.findOne = async (req, res) => {
 	try {
-		const data = await (await Maps.findById(req.params.mapId)).populate(
-			"civilian"
-		);
+		const data = await Maps.findById(req.params.mapId).populate("civilian");
 		if (!data) {
 			return res.status(httpsStatus.NOT_FOUND).json({
 				message: "record not found with id: " + req.params.mapId,
