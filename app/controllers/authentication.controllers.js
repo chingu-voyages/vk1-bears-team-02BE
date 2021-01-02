@@ -64,17 +64,63 @@ passport.use(
 // 	res.json({ message: "we're here" });
 // };
 
-exports.googleCallback = (req, res) => {
+exports.googleCallback = async (req, res) => {
 	// console.log(`from ${req.user}`);
 	// console.log(req.session);
 	// console.log(req);
-	res.redirect(`http://localhost:3000/login/?id=${req.user._id}`);
-	// res.json({ message: `welcome ${req.user}` });
-	// res.status(httpsStatus.OK).json({
-	// 	user: req.user,
-	// 	message: "unable to authorize user",
-	// 	status: httpsStatus.OK,
-	// });
+
+	//`http://localhost:3000/user/flood?id=${req.user._id}`
+
+	try {
+		const data = await User.findOne(
+			{ _id: req.user._id },
+			(error, foundUser) => {
+				if (error) {
+					console.log(`error:${error}`);
+				} else {
+					if (foundUser) {
+						// if (foundUser.password === password) {
+						// 	res.json({ data: data, status: 200 });
+						// } else {
+						// 	res.json({ data: "error,wrong password" });
+						// }
+
+						const payload = {
+							username: foundUser.username,
+							email: foundUser.email,
+							userId: foundUser._id,
+							role: "civilian",
+							googleId: foundUser.googleId,
+						};
+						//jwt key
+						const option = {
+							expiresIn: "1h",
+						};
+						const token = jwt.sign(payload, "secret", option);
+
+						// res.status(httpsStatus.OK).json({
+						// 	data: data,
+						// 	token: token,
+						// 	message: "user login",
+						// 	role: "civilian",
+						// 	status: httpsStatus.OK,
+						// });
+
+						res.redirect(`http://localhost:3000/user/flood?token=${token}`);
+						console.log(`http://localhost:3000/login/?token=${token}`);
+						// res.json({ data: data, status: 200 });
+					} else {
+						res.status(httpsStatus.OK).json({
+							// data: data,
+							// token: token,
+							message: "invalid credentials",
+							status: httpsStatus.OK,
+						});
+					}
+				}
+			}
+		);
+	} catch (error) {}
 };
 
 exports.googleFailedLogin = (req, res) => {
