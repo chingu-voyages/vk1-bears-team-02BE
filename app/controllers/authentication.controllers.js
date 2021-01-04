@@ -44,6 +44,7 @@ passport.use(
 						displayName: profile.displayName,
 						familyName: profile.name.familyName,
 						givenName: profile.name.givenName,
+						isActive: true,
 						photo: profile.photos[0].value,
 					},
 					function (err, user) {
