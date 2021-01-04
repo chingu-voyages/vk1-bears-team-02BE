@@ -43,6 +43,16 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 	},
 
+	dateRegisterd: {
+		type: Date,
+		default: Date.now,
+	},
+
+	isActive: {
+		type: Boolean,
+		default: false,
+	},
+
 	// map: [{ type: mongoose.Schema.Types.ObjectId, ref: "Map" }],
 });
 

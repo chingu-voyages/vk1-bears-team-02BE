@@ -33,7 +33,11 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
 	try {
-		const data = await Users.find().populate("mapData");
+		const data = await Users.find()
+			.sort({
+				givenName: -1,
+			})
+			.populate("mapData");
 		res.status(httpsStatus.OK).json({
 			data: data,
 			message: "all users(civilian type)",
