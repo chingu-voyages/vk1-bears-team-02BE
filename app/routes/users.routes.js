@@ -6,7 +6,7 @@ module.exports = (app) => {
 	app.post("/add-user-civilian", users.create);
 	app.get("/users", users.findAll);
 	//authUser.authenticate,
-	app.get("/user/:userId", users.findOne);
-	app.put("/user/:userId", users.update);
+	app.get("/user/:username", users.findOne);
+	app.post("/update", users.update);
 	app.delete("/user/:userId", users.delete);
 };

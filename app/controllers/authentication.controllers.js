@@ -170,15 +170,14 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.register = async (req, res) => {
-	const { username, password, email, givenName, familyName } = req.body;
+	const { username, password, email } = req.body;
 
 	bcrypt.hash(password, saltRounds, async (err, hash) => {
 		const user = new User({
 			username: username,
 			password: hash,
 			email: email,
-			givenName: givenName,
-			familyName: familyName,
+
 		});
 		try {
 			const data = await user.save();
@@ -317,7 +316,7 @@ exports.login = async (req, res) => {
 				}
 			}
 		);
-	} catch (error) {}
+	} catch (error) { }
 };
 
 exports.loginAdmin = async (req, res) => {
@@ -384,7 +383,7 @@ exports.loginAdmin = async (req, res) => {
 				}
 			}
 		);
-	} catch (error) {}
+	} catch (error) { }
 };
 
 exports.logout = async (req, res) => {
