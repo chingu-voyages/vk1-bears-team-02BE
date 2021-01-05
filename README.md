@@ -8,8 +8,10 @@ Back-end Repo: https://github.com/chingu-voyages/vk1-bears-team-02BE
 <a href="#preReq">2. Pre-requisites</a> <br>
 <a href="#installation">3. Installation</a> <br>
 <a href="#features">4. Features</a> <br>
-<a href="#tech"> 5. Technologies Used</a><br>
-<a href="#team">6. Meet the Team</a>
+<a href="#env">5. Environment Variables</a>
+<a href="#tech"> 6. Technologies Used</a><br>
+<a href="#team">7. Meet the Team</a>
+
 
 ## <h2 id="intro"> Introduction </h2>
 
@@ -42,6 +44,22 @@ To be able to run this application, [node.js] must be installed on the machine.
   - Report data statistics.
   - User report history.
   
+## <h2 id="env"> Environment Variables </h2>
+ This application uses the following environment variables:
+ - DB_Remote
+ - CLIENT_ID
+ - CLIENT_SECRET
+ - ACCESS_TOKEN_SECRET
+ - EMAIL_USER
+ - EMAIL_PASSWORD
+ - APP_ID
+ - APP_KEY
+ - APP_SECRET
+ - BACKEND_URL= http://localhost:5000/
+ - FRONTEND_URL= http://localhost:3000/
+
+ 
+
 ## <h2 id="tech"> Technology Used </h2>
  A series of open-source resources were used to make this project possible.
 * [ReactJS]
