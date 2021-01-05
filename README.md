@@ -5,7 +5,7 @@ Front-end Repo: https://github.com/chingu-voyages/vk1-bears-team-02
 Back-end Repo: https://github.com/chingu-voyages/vk1-bears-team-02BE
 ## Table of Contents
 <a href="#intro">1. Introduction</a> <br>
-<a href="#preReq">2. Pre-requisies</a> <br>
+<a href="#preReq">2. Pre-requisites</a> <br>
 <a href="#installation">3. Installation</a> <br>
 <a href="#features">4. Features</a> <br>
 <a href="#tech"> 5. Technologies Used</a><br>
