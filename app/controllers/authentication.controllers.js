@@ -29,7 +29,7 @@ passport.use(
 		{
 			clientID: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,
-			callbackURL: `${process.env.BACKEND_URL}google/callback`, //we will change this once we set up our remote server
+			callbackURL: `${process.env.BACKEND_URL}/google/callback`, //we will change this once we set up our remote server
 			// passReqToCallback: true,
 			userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
 		},
