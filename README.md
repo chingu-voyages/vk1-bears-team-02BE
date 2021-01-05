@@ -49,6 +49,8 @@ To be able to run this application, [node.js] must be installed on the machine.
 * [Mapbox]
 * [Pusher]
 * [PassportJS]
+* [MongoDB Atlas]
+
 
 
 
@@ -63,5 +65,6 @@ To be able to run this application, [node.js] must be installed on the machine.
    [PassportJS]: <http://www.passportjs.org/>
    [ReactJS]: <https://reactjs.org/>
    [Mapbox]: <https://www.mapbox.com/>
+   [MongoDB Atlas]: <https://www.mongodb.com/cloud/atlas>
 
 
