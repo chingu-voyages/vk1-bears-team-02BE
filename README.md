@@ -46,7 +46,7 @@ To be able to run this application, [node.js] must be installed on the machine.
   
 ## <h2 id="env"> Environment Variables </h2>
  This application uses the following environment variables:
- - DB_Remote
+ - DB_REMOTE
  - CLIENT_ID
  - CLIENT_SECRET
  - ACCESS_TOKEN_SECRET
