@@ -30,7 +30,7 @@ To be able to run this application, [node.js] must be installed on the machine.
    ```sh
   npm start
    ```
-*The front-end component must also be started to use the application
+*The front-end component must also be started to use the application <br>
 *This backend server would be running on port 5000
 
 
