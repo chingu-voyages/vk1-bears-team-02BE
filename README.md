@@ -48,7 +48,7 @@ To be able to run this application, [node.js] must be installed on the machine.
 * [node.js]
 * [Mapbox]
 * [Pusher]
-* [Passport.js]
+* [PassportJS]
 
 
 
