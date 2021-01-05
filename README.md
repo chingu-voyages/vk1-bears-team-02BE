@@ -42,23 +42,21 @@ To be able to run this application, [node.js] must be installed on the machine.
   - Report data statistics
   - User report history
   
-# Technologies Used
+## <h2 id="tech"> Technology Used </h2>
  A series of open-source resources were used to make this project possible.
 * [ReactJS]
 * [node.js]
 * [Mapbox]
 
 
-## Meet the Team 
+## <h2 id="team"> Meet the Team </h2>
 - [John Cunanan](https://github.com/theCodingJohn)
 - [Ivan Christian Jay Funcion](https://github.com/supremeking23)
 - [Christian Tan](https://github.com/mikotan-cpu)
 
 
-   [contributors-url]: https://github.com/chingu-voyages/vk1-bears-team-02/graphs/contributors
    [node.js]: <http://nodejs.org>
    [ReactJS]: <https://reactjs.org/>
    [Mapbox]: <https://www.mapbox.com/>
-   [React Bootstrap]: <https://react-bootstrap.github.io/>
 
 
