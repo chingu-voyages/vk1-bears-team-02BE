@@ -39,8 +39,8 @@ To be able to run this application, [node.js] must be installed on the machine.
   - Real-time user disaster reporting.
   - Administrator map-view of the country with pinpointed reports.
   - On the fly changing of status of reports.
-  - Report data statistics
-  - User report history
+  - Report data statistics.
+  - User report history.
   
 ## <h2 id="tech"> Technology Used </h2>
  A series of open-source resources were used to make this project possible.
