@@ -47,6 +47,9 @@ To be able to run this application, [node.js] must be installed on the machine.
 * [ReactJS]
 * [node.js]
 * [Mapbox]
+* [Pusher]
+* [Passport.js]
+
 
 
 ## <h2 id="team"> Meet the Team </h2>
@@ -56,6 +59,8 @@ To be able to run this application, [node.js] must be installed on the machine.
 
 
    [node.js]: <http://nodejs.org>
+   [Pusher]: <https://pusher.com/>
+   [PassportJS]: <http://www.passportjs.org/>
    [ReactJS]: <https://reactjs.org/>
    [Mapbox]: <https://www.mapbox.com/>
 
