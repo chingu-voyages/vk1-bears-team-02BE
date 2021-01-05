@@ -1,5 +1,5 @@
 const passport = require("passport");
-const CLIENT_HOME_PAGE_URL = "http://localhost:3000/login";
+// const CLIENT_HOME_PAGE_URL = "http://localhost:3000/login";
 // const User = require("../models/users.model");
 
 // passport.serializeUser(User.serializeUser());

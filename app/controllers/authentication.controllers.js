@@ -29,7 +29,7 @@ passport.use(
 		{
 			clientID: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,
-			callbackURL: "http://localhost:5000/google/callback", //we will change this once we set up our remote server
+			callbackURL: `${process.env.BACKEND_URL}google/callback`, //we will change this once we set up our remote server
 			// passReqToCallback: true,
 			userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
 		},
@@ -107,8 +107,10 @@ exports.googleCallback = async (req, res) => {
 						// 	status: httpsStatus.OK,
 						// });
 
-						res.redirect(`http://localhost:3000/user/flood?token=${token}`);
-						console.log(`http://localhost:3000/login/?token=${token}`);
+						res.redirect(
+							`${process.env.FRONTEND_URL}user/flood?token=${token}`
+						);
+						console.log(`${process.env.FRONTEND_URL}login/?token=${token}`);
 						// res.json({ data: data, status: 200 });
 					} else {
 						res.status(httpsStatus.OK).json({
