@@ -116,6 +116,42 @@ exports.update = async (req, res) => {
 	});
 };
 
+exports.updateUsernameAndPasswordOnly = async (req, res) => {
+	const { username, password } = req.body;
+	const option = { new: true };
+
+	bcrypt.hash(password, saltRounds, async (err, hash) => {
+		const reqBody = {
+			username: username,
+			password: hash,
+		};
+
+		try {
+			const data = await Users.findByIdAndUpdate(
+				req.params.userId,
+				reqBody,
+				option
+			);
+
+			if (!data) {
+				return res.status(httpsStatus.NOT_FOUND).send({
+					message: "record not found with id " + req.params.userId,
+					status: httpsStatus.NOT_FOUND,
+				});
+			}
+			return res.status(httpsStatus.OK).send({
+				data: data,
+				message: "record updated for user id " + req.params.userId,
+				status: httpsStatus.OK,
+			});
+		} catch (error) {
+			res.status(httpsStatus.INTERNAL_SERVER_ERROR).send({
+				message: error.message || "Some error ",
+			});
+		}
+	});
+};
+
 ///delete
 exports.delete = async (req, res) => {
 	try {

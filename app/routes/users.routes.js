@@ -8,5 +8,6 @@ module.exports = (app) => {
 	//authUser.authenticate,
 	app.get("/user/:userId", users.findOne);
 	app.put("/user/:userId", users.update);
+	app.put("/user-credential/:userId", users.updateUsernameAndPasswordOnly);
 	app.delete("/user/:userId", users.delete);
 };
