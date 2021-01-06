@@ -233,7 +233,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
 	const { username, password } = req.body;
-	console.log(req.body);
+	// console.log(req.body);
 	const user = new User({
 		username: username,
 		password: password,
