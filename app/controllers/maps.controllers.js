@@ -8,7 +8,7 @@ const pusher = new Pusher({
 	appId: process.env.APP_ID,
 	key: process.env.APP_KEY,
 	secret: process.env.APP_SECRET,
-	cluster: "us3",
+	cluster: process.env.CLUSTER,
 	useTLS: true,
 });
 
