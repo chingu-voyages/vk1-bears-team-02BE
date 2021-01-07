@@ -1,0 +1,9 @@
+POST http://localhost:5000/register
+Content-Type:application/json
+
+{
+    "username":"kaori_miyazono@gmail.com",
+    "password":"passwrd",
+    "email":"email@email.com"
+}
+
